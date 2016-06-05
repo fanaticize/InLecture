@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team3.inlecture.subject.SubjectMapper">
+    <insert id="insertSubject" parameterType="subjectVO">
+    	INSERT INTO SUBJECT 
+    	(NAME, SEMESTER, YEAR, SCHOOL, MEMSEQ, CODE) VALUES 
+    	(#{name}, #{semester}, #{year}, #{school}, #{memseq}, #{code}) 
+    </insert>
+    
+    <select id="searchSubjectList" parameterType="subjectVO" resultType="subjectVO">
+    	SELECT *, IFNULL((
+    		SELECT NAME FROM MEMBER
+    		WHERE MEMSEQ = A.MEMSEQ
+    	), '') AS PROFNAME
+    	FROM SUBJECT A
+		WHERE
+			SUBJECTSEQ NOT IN (
+				SELECT SUBJECTSEQ
+				FROM SUBJECT_STUDENT
+				WHERE MEMSEQ = #{memseq}
+				AND (ACCEPT = 'Y' OR ACCEPT = 'N')
+			)
+		    <if test="school != null and !school.equals('')">
+		        AND SCHOOL LIKE CONCAT('%', #{school}, '%')
+		    </if> 
+		    <if test="name != null and !name.equals('')">
+		        AND NAME LIKE CONCAT('%', #{name}, '%')
+		    </if>
+		    <if test="code != null and !code.equals('')">
+		        AND CODE LIKE CONCAT('%', #{code}, '%')
+		    </if>
+		    <if test="profName != null and !profName.equals('')">
+		        AND MEMSEQ IN (
+		        	SELECT MEMSEQ
+		        	FROM MEMBER
+		        	WHERE NAME = #{profName}
+		        	AND ROLE='T'
+		        )
+		    </if>
+    </select>
+    
+    <insert id="insertSubjectEnrolment" parameterType="HashMap">
+    	Insert INTO SUBJECT_STUDENT
+    	(SUBJECTSEQ, MEMSEQ, ACCEPT, DATE) VALUES
+    	(#{subjectSeq}, #{memSeq}, 'N', now())
+    </insert>
+    
+    <select id="selectSubjectEnrolmentList" parameterType="int" resultType="subjectEnrolmentVO">
+    	SELECT 
+			A.subjectSeq AS subjectSeq,
+			A.memSeq AS memSeq,
+			B.NAME AS subjectName,
+			B.CODE AS subjectCode,
+			year,
+			semester,
+			C.NAME AS memName,
+			C.CODE AS memCode
+		FROM
+			SUBJECT_STUDENT A, SUBJECT B, MEMBER C
+		WHERE
+			A.SUBJECTSEQ = B.SUBJECTSEQ
+		AND	A.MEMSEQ = C.MEMSEQ
+		AND A.SUBJECTSEQ IN (
+			SELECT SUBJECTSEQ
+			FROM SUBJECT
+			WHERE MEMSEQ = #{memSeq}
+		)
+		AND A.ACCEPT = 'N'
+		ORDER BY A.SUBJECTSEQ, MEMNAME
+    </select>
+    
+    <update id="updateEnrolmentAccept" parameterType="subjectEnrolmentVO">
+    	UPDATE SUBJECT_STUDENT
+    	SET
+    		ACCEPT = #{accept}
+    	WHERE
+    		SUBJECTSEQ = #{subjectSeq}
+    	AND	MEMSEQ = #{memSeq}
+    </update>
+    
+    <select id="selectStudentCourseList" parameterType="int" resultType="subjectVO">
+    	SELECT *, IFNULL((
+    		SELECT NAME FROM MEMBER
+    		WHERE MEMSEQ = A.MEMSEQ
+    	), '') AS PROFNAME
+    	FROM SUBJECT A
+    	WHERE SUBJECTSEQ IN (
+    		SELECT SUBJECTSEQ
+    		FROM SUBJECT_STUDENT
+    		WHERE MEMSEQ = #{memSeq}
+    		AND ACCEPT = 'Y'
+    	)
+    </select>
+    
+    <select id="selectTeacherCourseList" parameterType="int" resultType="subjectVO">
+    	SELECT *
+    	FROM SUBJECT
+    	WHERE MEMSEQ = #{memSeq}
+    </select>
+    
+</mapper>

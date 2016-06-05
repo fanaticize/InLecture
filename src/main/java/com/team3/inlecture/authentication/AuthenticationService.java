@@ -42,6 +42,7 @@ public class AuthenticationService implements UserDetailsService {
 		else if(member.getRole().equals("T"))
 			rolelist.add(new SimpleGrantedAuthority("ROLE_TEACHER"));
 		UserAuth user = new UserAuth(username, member.getPw(), rolelist);
+		user.setMemseq(member.getMemseq());
 		return user;
 	}
 }

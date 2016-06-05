@@ -35,6 +35,10 @@
         <td><form:input path="name" /><form:errors path="name" /></td>
      </tr>
      <tr>
+        <td>고유번호(학번) :</td>
+        <td><form:input path="code" /><form:errors path="code" /></td>
+     </tr>
+     <tr>
         <td>닉네임 :</td>
         <td><form:input path="nick" /><form:errors path="nick" /></td>
      </tr>

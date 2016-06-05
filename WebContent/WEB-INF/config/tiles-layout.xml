@@ -10,8 +10,21 @@
  <put-attribute name="body"  value="/WEB-INF/views/layout/body.jsp" />
  <put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" />
 </definition>
- 
+
+<definition name="lectureRoom" template="/WEB-INF/views/layout/tilesTemplate.jsp">
+ <put-attribute name="header" value="/WEB-INF/views/layout/header.jsp" />
+ <put-attribute name="menu"  value="/WEB-INF/views/layout/menu2.jsp" />
+ <put-attribute name="body"  value="/WEB-INF/views/layout/body.jsp" />
+ <put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" />
+</definition>
+
+ <definition name="lecture/*" extends="lectureRoom">
+ <put-attribute name="body" value="/WEB-INF/views/lecture/{1}.jsp" />
+</definition>
+
 <definition name="*/*" extends="default">
  <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
 </definition>
+
+
 </tiles-definitions>

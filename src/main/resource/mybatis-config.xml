@@ -5,7 +5,4 @@
     <typeAliases>
 	  <package name="com.team3.inlecture"/>
 	</typeAliases>
-<!--     <mappers> -->
-<!--         <mapper resource="sqlmaps/authentication/authentication_SQL.xml"></mapper> -->
-<!--     </mappers> -->
 </configuration>

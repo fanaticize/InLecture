@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team3.inlecture.common.FileMapper">
+    <insert id="insertFile" parameterType="fileVO" useGeneratedKeys="true" keyProperty="fileSeq">
+    	INSERT INTO FILE
+    	(NAME, REALNAME, DATE, FILETYPE, USETYPE) VALUES 
+    	(#{name}, CONCAT(LAST_INSERT_ID()+1,'_' ,#{name}), now(), #{fileType}, #{useType}) 
+    </insert>
+    <select id="selectFile" parameterType="int" resultType="fileVO">
+    	SELECT * FROM FILE
+    	WHERE FILESEQ = #{fileSeq}
+    </select>
+    <delete id="deleteFile" parameterType="int">
+    	DELETE FROM FILE
+    	WHERE FILESEQ = #{fileSeq}
+    </delete>
+</mapper>

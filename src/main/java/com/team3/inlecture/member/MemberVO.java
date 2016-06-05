@@ -37,6 +37,8 @@ public class MemberVO{
 	@Email(message="올바른 형식이 아닙니다.")
 	private String email;
 	
+	private String code;
+	
 	public String getNick() {
 		return nick;
 	}
@@ -101,11 +103,14 @@ public class MemberVO{
 		this.name = name;
 	}
 
-	@Override
-	public String toString() {
-		return "MemberVO [memseq=" + memseq + ", id=" + id + ", pw=" + pw + ", name=" + name + ", nick=" + nick
-				+ ", role=" + role + ", school=" + school + ", email=" + email + "]";
+	public String getCode() {
+		return code;
 	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
 	
 	
 

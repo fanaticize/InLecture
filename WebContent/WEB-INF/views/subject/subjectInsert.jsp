@@ -10,6 +10,10 @@
 <body>
 <form:form commandName="subject">
   <table>
+  	 <tr>
+        <td>학교:</td>
+        <td><form:input path="school" /><form:errors path="school" /></td>
+     </tr>
      <tr>
         <td>과목이름 :</td>
         <td>
@@ -18,33 +22,23 @@
         </td>
      </tr>
      <tr>
-        <td>패스워드 :</td> 
+        <td>수업코드 :</td>
         <td>
-        <form:password path="pw" />
-        <form:errors path="pw" />
+        <form:input path="code" />
+        <form:errors path="code" />
         </td>
      </tr>
      <tr>
-        <td>유형 :</td>
-        <td><form:radiobutton path="role" value="S" label="학생" /> 
-            <form:radiobutton path="role" value="T" label="교수" />
-            <form:errors path="role" /></td>
+        <td>연도</td>
+        <td><form:input path="year" value="${year}"/><form:errors path="year" /></td>
      </tr>
      <tr>
-        <td>이름 :</td>
-        <td><form:input path="name" /><form:errors path="name" /></td>
-     </tr>
-     <tr>
-        <td>닉네임 :</td>
-        <td><form:input path="nick" /><form:errors path="nick" /></td>
-     </tr>
-     <tr>
-        <td>학교 :</td>
-        <td><form:input path="school" /><form:errors path="school" /></td>
-     </tr>
-     <tr>
-        <td>이메일 :</td>
-        <td><form:input path="email" /><form:errors path="email" /></td>
+        <td>학기 :</td>
+        <td>
+        <form:radiobutton path="semester" value="1H" label="1학기"/>
+		<form:radiobutton path="semester" value="2H" label="2학기"/>
+        <form:errors path="semester" />
+        </td>
      </tr>
    </table>
    <input type="submit" value="submit"/>

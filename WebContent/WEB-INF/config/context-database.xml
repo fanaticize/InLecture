@@ -6,8 +6,8 @@
      
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://127.0.0.1:3306/inlecture"/>
-        <property name="username" value="root"/>
+        <property name="url" value="jdbc:mysql://192.168.0.26:3306/inlecture"/>
+        <property name="username" value="otheruser"/>
         <property name="password" value="asdf"/>
     </bean>
 </beans>

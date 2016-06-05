@@ -27,7 +27,6 @@ public class MemberController {
 	public String signUp(@ModelAttribute("member") @Valid MemberVO member,
 			BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) return "member/signup";
-		System.out.println(member.toString());
 		memberService.insertMember(member);
 		
 		return "member/signupComplete";

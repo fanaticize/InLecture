@@ -53,6 +53,10 @@
             </pattern>
         </encoder>
     </appender>
+    <logger name="jdbc.resultset">
+        <appender-ref ref="STDOUT" />
+            <level value="error"/>
+        </logger>
         
     <!-- 이 아래에 있는 애들 다 log로 찍겠다. -->
     <logger name="com.ktds.mcjang.intercept.LoginInterceptor" level="info">

@@ -4,15 +4,7 @@
 <mapper namespace="com.team3.inlecture.member.MemberMapper">
     <insert id="insertMember" parameterType="memberVO">
     	INSERT INTO MEMBER 
-    	(ID, PW, NAME, NICK, ROLE, SCHOOL, EMAIL) VALUES 
-    	(#{id}, #{pw}, #{name}, #{nick}, #{role}, #{school}, #{email}) 
+    	(ID, PW, NAME, NICK, ROLE, SCHOOL, EMAIL, CODE) VALUES 
+    	(#{id}, #{pw}, #{name}, #{nick}, #{role}, #{school}, #{email}, #{code}) 
     </insert>
-<!--     <select id="getMemberById" parameterType="String" resultType="memberVO"> -->
-<!--         SELECT -->
-<!--             MEMSEQ, ID, PW, NAME, NICK, ROLE, SCHOOL -->
-<!--         FROM -->
-<!--             MEMBER -->
-<!--         WHERE -->
-<!--         	id = #{id} -->
-<!--     </select> -->
 </mapper>

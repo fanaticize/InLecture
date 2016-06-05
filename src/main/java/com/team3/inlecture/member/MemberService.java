@@ -12,7 +12,6 @@ public class MemberService {
 	public void insertMember(MemberVO memberVO){
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		memberVO.setPw(passwordEncoder.encode(memberVO.getPw()) );
-		System.out.println(memberVO.toString());
 		memberMapper.insertMember(memberVO);
 	}
 }
