@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team3.inlecture.lecture.quiz.QuizMapper">
+<!--     <insert id="insertLectureFile" parameterType="HashMap"> -->
+<!--         INSERT INTO SUBJECT_FILE -->
+<!--     	(SUBJECTSEQ, FILESEQ) VALUES  -->
+<!--     	(#{subjectSeq}, #{fileSeq})  -->
+<!--    	</insert> -->
+   	
+   	<select id="selectQuizList" parameterType="int" resultType="quizVO">
+    	SELECT * FROM QUIZ
+    	WHERE 
+    		SUBJECTSEQ = #{subjectSeq}
+    </select>
+    
+    <resultMap type="quizVO" id="quizResultMap">
+    	<result property="quizSeq" column="quizSeq"/>
+    	<result property="subjectSeq" column="subjectSeq"/>
+    	<result property="name" column="name"/>
+    	<collection property="quizProblemList" column="quizSeq" ofType="quizProblemVO">
+    		<result property="quizSeq" column="quizSeq"/>
+    		<result property="idx" column="idx"/>
+    		<result property="content" column="content"/>
+    	</collection>
+    </resultMap>
+    
+    <select id="selectQuizProblem" parameterType="int" resultMap="quizResultMap">
+    	SELECT A.*, B.*
+    	FROM QUIZ A
+    	INNER JOIN QUIZ_PROBLEM AS B
+    	ON A.QUIZSEQ = B.QUIZSEQ
+    	WHERE 
+    		A.QUIZSEQ = #{quiztSeq}
+    </select>
+    
+    <insert id="insertQuiz" parameterType="quizVO">
+        INSERT INTO QUIZ
+    	(
+    	<if test="quizSeq != null">
+		    QUIZSEQ,
+		</if>
+    	SUBJECTSEQ, NAME) VALUES 
+    	(
+    	<if test="quizSeq != null">
+		   #{quizSeq},
+		</if>
+    	#{subjectSeq}, #{name}) 
+   	</insert>
+   	
+   	<insert id="insertQuizProblemList" parameterType="quizVO">
+   		INSERT INTO QUIZ_PROBLEM
+   		(QUIZSEQ, IDX, CONTENT,) VALUES
+		<foreach item="problem" collection="quizProblemList" separator=",">
+			(#{quizSeq}, #{problem.idx}, #{problem.content})
+		</foreach>
+   	</insert>
+   	
+   	<insert id="insertQuizProblemListWithSeq" parameterType="quizVO">
+   		INSERT INTO QUIZ_PROBLEM
+   		(QUIZPROBLEMSEQ, QUIZSEQ, IDX, CONTENT,) VALUES
+		<foreach item="problem" collection="quizProblemList" separator=",">
+			(#{problem.quizProblemSeq}, #{quizSeq}, #{problem.idx}, #{problem.content})
+		</foreach>
+   	</insert>
+   	
+   	<delete id="deleteQuizProblemList" parameterType="int">
+    	DELETE FROM QUIZ_PROBLEM
+     	WHERE
+     		QUIZSEQ = #{quizSeq}
+    </delete>
+   	
+   	<delete id="deleteQuiz" parameterType="int">
+    	DELETE FROM QUIZ
+     	WHERE
+     		QUIZSEQ = #{quizSeq}
+    </delete>
+    
+    <resultMap type="quizVO" id="quizAnswerResultMap">
+    	<result property="quizSeq" column="quizSeq"/>
+    	<result property="subjectSeq" column="subjectSeq"/>
+	    <result property="name" column="name"/>
+	    <association property="member" javaType="memberVO">
+    		<result property="memSeq" column="memberSeq"/>
+		    <result property="name" column="mem_name"/>
+		    <result property="code" column="mem_code"/>
+    	</association>
+    	<collection property="quizProblemList" column="quizSeq" ofType="quizProblemVO">
+    		<result property="quizProblemSeq" column="quizProblemSeq"/>
+    		<result property="idx" column="idx"/>
+    		<result property="content" column="content"/>
+    	</collection>
+    </resultMap>
+    
+    
+    
+    <select id="selectAnswerList" parameterType="int" resultMap="quizAnswerResultMap">
+    	SELECT
+    	FROM QUIZ_ANSWER A
+    	INNER JOIN QUIZ_STUDENT B
+    	
+    	
+    	SELECT A.*, B.*
+    	FROM QUIZ A
+    	INNER JOIN QUIZ_PROBLEM AS B
+    	ON A.QUIZSEQ = B.QUIZSEQ
+    	WHERE 
+    		A.QUIZSEQ = #{quiztSeq}
+    </select>
+    
+<!--     <delete id="deleteLectureFile" parameterType="HashMap"> -->
+<!--     	DELETE FROM SUBJECT_FILE -->
+<!--      	WHERE -->
+<!--      		SUBJECTSEQ = #{subjectSeq} -->
+<!--      	AND FILESEQ = #{fileSeq} -->
+<!--     </delete> -->
+</mapper>
