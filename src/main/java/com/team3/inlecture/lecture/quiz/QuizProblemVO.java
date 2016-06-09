@@ -8,9 +8,7 @@ public class QuizProblemVO {
 	private int quizSeq;
 	private int idx;
 	private String content;
-	private String answer;
-	private int score;
-	private String comment;
+
 	public int getQuizProblemSeq() {
 		return quizProblemSeq;
 	}
@@ -35,25 +33,5 @@ public class QuizProblemVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getAnswer() {
-		return answer;
-	}
-	public void setAnswer(String answer) {
-		this.answer = answer;
-	}
-	public int getScore() {
-		return score;
-	}
-	public void setScore(int score) {
-		this.score = score;
-	}
-	public String getComment() {
-		return comment;
-	}
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-	
-	
 	
 }

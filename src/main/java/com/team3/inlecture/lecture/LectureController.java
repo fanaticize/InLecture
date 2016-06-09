@@ -29,8 +29,6 @@ import com.team3.inlecture.common.FileVO;
 public class LectureController {
 	@Autowired
     private LectureService lectureService;
-	@Autowired
-	private FileManager fileManager;
 	
 	@Secured("ROLE_USER")
 	@RequestMapping(value = "{subjectSeq}/lectureRoom", method = RequestMethod.GET)
@@ -66,17 +64,6 @@ public class LectureController {
 	public @ResponseBody void lectureMaterialDelete(@PathVariable int subjectSeq,
 			@RequestBody FileVO file ){
 		lectureService.deleteLectureFile(subjectSeq, file.getFileSeq());
-	}
-	
-	@RequestMapping(value = "{subjectSeq}/lectureBroadcastPage")
-	public String lectureBroadcastPage(@PathVariable @ModelAttribute("subjectSeq") int subjectSeq
-			, Model model){
-		String file = fileManager.getFileBase64(10);
-		model.addAttribute("file", file);
-		SecurityContext context = SecurityContextHolder.getContext();
-		UserAuth userinfo =(UserAuth) context.getAuthentication().getPrincipal();
-		model.addAttribute("memSeq", userinfo.getMemseq());
-		return "lecture/lectureBroadcast";
 	}
 	
 }

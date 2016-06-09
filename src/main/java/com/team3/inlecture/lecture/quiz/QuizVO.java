@@ -10,9 +10,9 @@ import com.team3.inlecture.member.MemberVO;
 public class QuizVO {
 	private int quizSeq;
 	private int subjectSeq;
-	private String name;	
+	private String name;
+	private String isTested;
 	private ArrayList<QuizProblemVO> quizProblemList;
-	private MemberVO member;
 	
 	public int getQuizSeq() {
 		return quizSeq;
@@ -32,17 +32,17 @@ public class QuizVO {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getIsTested() {
+		return isTested;
+	}
+	public void setIsTested(String isTested) {
+		this.isTested = isTested;
+	}
 	public ArrayList<QuizProblemVO> getQuizProblemList() {
 		return quizProblemList;
 	}
 	public void setQuizProblemList(ArrayList<QuizProblemVO> quizProblemList) {
 		this.quizProblemList = quizProblemList;
-	}
-	public MemberVO getMember() {
-		return member;
-	}
-	public void setMember(MemberVO member) {
-		this.member = member;
 	}
 	
 }

@@ -18,6 +18,18 @@
  <put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" />
 </definition>
 
+<definition name="pageOnly" template="/WEB-INF/views/layout/tilesTemplateDefault.jsp">
+ <put-attribute name="body"  value="/WEB-INF/views/layout/body.jsp" />
+</definition>
+
+ <definition name="authentication/*" extends="pageOnly">
+ <put-attribute name="body" value="/WEB-INF/views/authentication/{1}.jsp" />
+</definition>
+
+ <definition name="member/*" extends="pageOnly">
+ <put-attribute name="body" value="/WEB-INF/views/member/{1}.jsp" />
+</definition>
+
  <definition name="lecture/*" extends="lectureRoom">
  <put-attribute name="body" value="/WEB-INF/views/lecture/{1}.jsp" />
 </definition>

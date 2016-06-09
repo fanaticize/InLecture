@@ -30,6 +30,7 @@
     width: 700px;
     float: left;
     border: 1px solid black;
+       overflow-y: scroll;
 }
 .layout_footer{
 	height: 60px;

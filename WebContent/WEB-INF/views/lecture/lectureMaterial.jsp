@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="_csrf" content="${_csrf.token}"/>
+	<meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 	<title>InLecture</title>
 	<script type="text/javascript" src="<c:url value="/resources/js/jquery-2.2.4.min.js" />" ></script>
@@ -57,7 +57,7 @@
 		<td><input type="button" value="삭제" onclick="fileDelete(${file.fileSeq}, ${status.count});"></td>
 	</tr>
 	</c:forEach>
-</table>
+	</table>
 	
 </body>
 </html>
