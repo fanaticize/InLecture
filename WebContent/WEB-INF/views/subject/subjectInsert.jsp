@@ -1,47 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>InLecture</title>	
-</head>
 
-<body>
-<form:form commandName="subject">
-  <table>
-  	 <tr>
-        <td>학교:</td>
-        <td><form:input path="school" /><form:errors path="school" /></td>
-     </tr>
-     <tr>
-        <td>과목이름 :</td>
-        <td>
-        <form:input path="name" />
-        <form:errors path="name" />
-        </td>
-     </tr>
-     <tr>
-        <td>수업코드 :</td>
-        <td>
-        <form:input path="code" />
+<div class="row">
+    <div class="well col-md-9 center login-box">
+    	<form:form commandName="subject" class="form-horizontal">
+         <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">학교</label>
+            <div class="col-sm-10">
+              <form:input path="school" class="form-control" id="inputEmail3" placeholder=""/><form:errors path="school" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">과목이름</label>
+            <div class="col-sm-10">
+            	<form:input path="name" class="form-control" id="inputEmail3" placeholder=""/><form:errors path="name" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">수업코드</label>
+            <div class="col-sm-10">
+              <form:input path="code" class="form-control" id="inputEmail3" />
         <form:errors path="code" />
-        </td>
-     </tr>
-     <tr>
-        <td>연도</td>
-        <td><form:input path="year" value="${year}"/><form:errors path="year" /></td>
-     </tr>
-     <tr>
-        <td>학기 :</td>
-        <td>
-        <form:radiobutton path="semester" value="1H" label="1학기"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">연도</label>
+            <div class="col-sm-10">
+              <form:input path="year" value="${year}" class="form-control" id="inputEmail3"/><form:errors path="year" />
+            </div>
+          </div>
+           <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">학기</label>
+            <div class="col-sm-10">
+              <form:radiobutton path="semester" value="1H" label="1학기"/>
 		<form:radiobutton path="semester" value="2H" label="2학기"/>
         <form:errors path="semester" />
-        </td>
-     </tr>
-   </table>
-   <input type="submit" value="submit"/>
-</form:form>
-</body>
-</html>
+            </div>
+          </div>
+           <input type="submit" value="제출" > 
+        </form:form>
+       </div>
+</div>

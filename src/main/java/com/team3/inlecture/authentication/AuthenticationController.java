@@ -44,7 +44,7 @@ public class AuthenticationController {
 	    if (auth != null){    
 	        new SecurityContextLogoutHandler().logout(request, response, auth);
 	    }
-	    return "authentication/logout";
+	    return "redirect:/main.do";
 	}
 	
 	@RequestMapping(value = "/loginSuccess", method = RequestMethod.GET)
@@ -55,7 +55,8 @@ public class AuthenticationController {
          auth.getName();
 		logger.info("Welcome login_success! ");
 		session.setAttribute("userLoginInfo", userDetails);
-		return "authentication/loginSuccess";
+//		return "authentication/loginSuccess";
+		return "redirect:/main.do";
 	}
 	
 	

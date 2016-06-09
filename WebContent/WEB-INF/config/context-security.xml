@@ -19,7 +19,7 @@
 		<intercept-url pattern="/authentication/**" access="permitAll" />
 		<intercept-url pattern="/member/**" access="permitAll" />
 		<intercept-url pattern="/error.do*" access="permitAll" />
-		<intercept-url pattern="/main.do" access="permitAll" />
+<!-- 		<intercept-url pattern="/main.do" access="permitAll" /> -->
 		<intercept-url pattern="/**" access="hasRole('USER')" />
 		
  
