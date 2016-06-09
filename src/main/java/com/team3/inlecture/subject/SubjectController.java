@@ -91,4 +91,20 @@ public class SubjectController {
 	public @ResponseBody void updateEnrolment(@RequestBody SubjectEnrolmentVO subjectEnrolment) {
 		subjectService.updateEnrolmentAccept(subjectEnrolment);
 	}
+	
+	@Secured("ROLE_STUDENT")
+	@RequestMapping(value = "/selectStudentSubjectList.do", method = RequestMethod.POST)
+	public @ResponseBody ArrayList<SubjectVO> selectStudentSubjectList(){
+		SecurityContext context = SecurityContextHolder.getContext();
+		UserAuth userinfo =(UserAuth) context.getAuthentication().getPrincipal();
+		return subjectService.selectStudentCourseList(userinfo.getMemseq());
+	}
+	
+	@Secured("ROLE_TEACHER")
+	@RequestMapping(value = "/selectTeacherSubjectList.do", method = RequestMethod.POST)
+	public @ResponseBody ArrayList<SubjectVO> selectTeacherSubjectList(){
+		SecurityContext context = SecurityContextHolder.getContext();
+		UserAuth userinfo =(UserAuth) context.getAuthentication().getPrincipal();
+		return subjectService.selectTeacherCourseList(userinfo.getMemseq());
+	}
 }

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team3.inlecture.lecture.quiz.QuizMapper">
+   	
+   	
+   	<select id="selectQuizList" parameterType="int" resultType="quizVO">
+    	SELECT * FROM QUIZ
+    	WHERE 
+    		SUBJECTSEQ = #{subjectSeq}
+    </select>
+    
+    <select id="selectQuiz"  parameterType="int" resultType="quizVO">
+    	SELECT * FROM QUIZ
+    	WHERE
+    		QUIZSEQ = #{quizSeq}
+    </select>
+    
+    <select id="selectQuizProblemList"  parameterType="int" resultType="quizProblemVO">
+    	SELECT * FROM QUIZ_PROBLEM
+    	WHERE
+    		QUIZSEQ = #{quizSeq}
+    </select>
+    
+    <resultMap type="quizVO" id="quizResultMap">
+    	<result property="quizSeq" column="quizSeq"/>
+    	<result property="subjectSeq" column="subjectSeq"/>
+    	<result property="name" column="name"/>
+    	<result property="isTested" column="isTested"/>
+    	<collection property="quizProblemList" column="quizSeq" ofType="quizProblemVO">
+    		<result property="quizSeq" column="quizSeq"/>
+    		<result property="idx" column="idx"/>
+    		<result property="content" column="content"/>
+    	</collection>
+    </resultMap>
+    
+    <select id="selectQuizProblem" parameterType="int" resultMap="quizResultMap">
+    	SELECT A.*, B.*
+    	FROM QUIZ A
+    	INNER JOIN QUIZ_PROBLEM AS B
+    	ON A.QUIZSEQ = B.QUIZSEQ
+    	WHERE 
+    		A.QUIZSEQ = #{quiztSeq}
+    </select>
+    
+    <insert id="insertQuiz" parameterType="quizVO" useGeneratedKeys="true" keyProperty="quizSeq">
+        INSERT INTO QUIZ
+    	(SUBJECTSEQ, NAME, ISTESTED) VALUES 
+    	(#{subjectSeq}, #{name}, #{isTested}) 
+   	</insert>
+   	
+   	<insert id="insertQuizWithSeq" parameterType="quizVO" useGeneratedKeys="true" keyProperty="quizSeq">
+        INSERT INTO QUIZ
+    	(QUIZSEQ,SUBJECTSEQ, NAME, ISTESTED) VALUES 
+    	(#{quizSeq}, #{subjectSeq}, #{name}, #{isTested}) 
+   	</insert>
+   	
+   	<insert id="insertQuizProblemList" parameterType="quizVO">
+   		INSERT INTO QUIZ_PROBLEM
+   		(QUIZSEQ, IDX, CONTENT) VALUES
+		<foreach item="problem" collection="quizProblemList" separator=",">
+			(#{quizSeq}, #{problem.idx}, #{problem.content})
+		</foreach>
+   	</insert>
+   	
+   	<delete id="deleteQuizProblemList" parameterType="int">
+    	DELETE FROM QUIZ_PROBLEM
+     	WHERE
+     		QUIZSEQ = #{quizSeq}
+    </delete>
+   	
+   	<delete id="deleteQuiz" parameterType="int">
+    	DELETE FROM QUIZ
+     	WHERE
+     		QUIZSEQ = #{quizSeq}
+    </delete>
+    
+    <update id="startQuiz" parameterType="int">
+    	UPDATE QUIZ
+    	SET ISTESTED = 'W'
+    	WHERE
+    		QUIZSEQ = #{quizSeq}
+    </update>
+    
+    <update id="endQuiz" parameterType="int">
+    	UPDATE QUIZ
+    	SET ISTESTED = 'Y'
+    	WHERE
+    		QUIZSEQ = #{quizSeq}
+    </update>
+    
+    <resultMap type="quizStudentVO" id="quizSelectMap">
+    	<result property="quizSeq" column="quizSeq"/>
+    	<result property="subjectSeq" column="subjectSeq"/>
+    	<result property="name" column="name"/>
+    	<result property="isTested" column="isTested"/>
+	    <association property="member" javaType="memberVO">
+    		<result property="memseq" column="memseq"/>
+    	</association>
+    </resultMap>
+	<select id="selectStartedQuizList" parameterType="quizStudentVO" resultMap="quizSelectMap">
+		SELECT A.*, IFNULL(B.MEMSEQ, 0) AS MEMSEQ FROM QUIZ A
+		LEFT OUTER JOIN 
+		(
+			SELECT MEMSEQ, QUIZSEQ FROM QUIZ_STUDENT
+			WHERE 
+				MEMSEQ = #{member.memseq}
+		) B
+		ON A.QUIZSEQ = B.QUIZSEQ
+    	WHERE 
+    		SUBJECTSEQ = #{subjectSeq}
+    	AND (ISTESTED = 'W' OR ISTESTED = 'Y')
+	</select>
+   	
+	<insert id="insertStudentQuiz" parameterType="quizStudentVO" useGeneratedKeys="true" keyProperty="quizStudentSeq">
+		INSERT INTO QUIZ_STUDENT
+    	(QUIZSEQ, MEMSEQ, ISGRADING) VALUES 
+    	(#{quizSeq}, #{member.memseq}, 'N') 
+	</insert>
+	
+	<insert id="insertStudentQuizAnswer" parameterType="quizStudentVO">
+   		INSERT INTO QUIZ_STUDENT_ANSWER
+   		(QUIZSTUDENTSEQ, QUIZPROBLEMSEQ, ANSWER) VALUES
+		<foreach item="answer" collection="quizProblemList" separator=",">
+			(#{quizStudentSeq}, #{answer.quizProblemSeq}, #{answer.answer})
+		</foreach>
+   	</insert>
+   	
+   	<resultMap type="quizStudentVO" id="quizStudentListMap">
+    	<result property="quizSeq" column="quizSeq"/>
+    	<result property="quizStudentSeq" column="quizStudentSeq"/>
+    	<result property="isGrading" column="isGrading"/>
+    	<result property="score" column="score"/>
+	    <association property="member" javaType="memberVO">
+    		<result property="memseq" column="memseq"/>
+    		<result property="name" column="name"/>
+    		<result property="code" column="code"/>
+    	</association>
+    </resultMap>
+   	<select id="selectQuizStudentList" parameterType="int" resultMap="quizStudentListMap">
+   		SELECT QUIZSTUDENTSEQ, QUIZSEQ, A.MEMSEQ, NAME, CODE, ISGRADING, SCORE
+		FROM QUIZ_STUDENT A,
+		MEMBER B
+		WHERE A.MEMSEQ = B.MEMSEQ
+		AND QUIZSEQ = #{quizSeq}
+   	</select>
+   	
+   	<select id="selectQuizStudentAnswerList" parameterType="int" resultType="quizStudentAnswerVO">
+   		SELECT A.QUIZPROBLEMSEQ, QUIZSEQ, IDX, CONTENT, QUIZANSWERSEQ, QUIZSTUDENTSEQ, ANSWER, SCORE, COMMENT
+   		FROM QUIZ_PROBLEM A
+   		LEFT OUTER JOIN (
+   			SELECT * FROM
+   			QUIZ_STUDENT_ANSWER
+   			WHERE QUIZSTUDENTSEQ = #{quizStudentSeq} 
+		) as B
+   		ON A.QUIZPROBLEMSEQ = B.QUIZPROBLEMSEQ
+        WHERE A.QUIZSEQ = (
+			SELECT QUIZSEQ FROM QUIZ_STUDENT
+            WHERE QUIZSTUDENTSEQ = #{quizStudentSeq} 
+        )
+        ORDER BY IDX;
+   	</select>
+   	
+   	<update id="updateQuizStudentScore" parameterType="quizStudentVO">
+   		UPDATE QUIZ_STUDENT
+   		SET SCORE = ROUND(#{score}, 2),
+   			ISGRADING = 'Y'
+   		WHERE QUIZSTUDENTSEQ = #{quizStudentSeq}
+   	</update>
+   	
+   	<update id="updateAnswer" parameterType="quizStudentAnswerVO">
+   		UPDATE QUIZ_STUDENT_ANSWER
+   		SET SCORE = ROUND(#{score}, 2),
+   			COMMENT = #{comment}
+   		WHERE QUIZANSWERSEQ = #{quizAnswerSeq}
+   	</update>
+   	
+</mapper>
