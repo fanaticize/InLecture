@@ -66,7 +66,7 @@
             
             <div class="btn-group pull-right">
                 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> Professor</span>
+                    <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> Student</span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
@@ -75,7 +75,8 @@
                     <li><a href="#">과목 3</a></li>
                     <li><a href="#">과목 4</a></li>
                     <li><a href="#">과목 5</a></li>
-                  <li class="divider"></li>
+                    <li><a href="#">과목 6</a></li>
+                    <li class="divider"></li>
                     <li><a href="index.html">Logout</a></li>
                 </ul>
             </div>
@@ -93,21 +94,19 @@
 
                     </div>
                     <ul class="nav nav-pills nav-stacked main-menu">
-                        <li class="nav-header">Menu</li> 
-                        <li><a class="ajax-link" href="professor_index"><i class="glyphicon glyphicon-home"></i><span> 메인</span></a>
+                        <li class="nav-header">Menu</li>
+                        <li><a class="ajax-link" href="student_index.html"><i class="glyphicon glyphicon-home"></i><span> 메인</span></a>
                         </li>
-                        <li><a class="ajax-link" href="professor_lecture_index.html"><i class="glyphicon glyphicon-bookmark"></i><span> 강의</span></a>
+                        <li><a class="ajax-link" href="student_lecture_index.html"><i class="glyphicon glyphicon-bookmark"></i><span> 강의</span></a>
                         </li>
-                        <li><a class="ajax-link" href="professor_lecture.html"><i class="glyphicon glyphicon-edit"></i><span> 강의하기</span></a>
+                        <li><a class="ajax-link" href="student_lecture.html"><i class="glyphicon glyphicon-edit"></i><span> 강의 듣기</span></a>
                         </li>
-                        <li><a class="ajax-link" href="professor_gongji.html"><i class="glyphicon glyphicon-bullhorn"></i><span> 공지 게시판</span></a></li>
-                        <li><a class="ajax-link" href="professor_question_box.html"><i class="glyphicon glyphicon-list-alt"></i><span> 질문 게시판</span></a>
+                        <li><a class="ajax-link" href="student_gongji.html"><i class="glyphicon glyphicon-bullhorn"></i><span> 공지 게시판</span></a></li>
+                        <li><a class="ajax-link" href="student_question_box.html"><i class="glyphicon glyphicon-list-alt"></i><span> 질문 게시판</span></a>
                         </li>
-                        <li><a class="ajax-link" href="professor_calendar"><i class="glyphicon glyphicon-calendar"></i><span> 일정 관리</span></a>
+                        <li><a class="ajax-link" href="student_quiz.html"><i class="glyphicon glyphicon-pencil"></i><span> 퀴즈 보기</span></a>
                         </li>
-                        <li><a class="ajax-link" href="professor_quiz"><i class="glyphicon glyphicon-pencil"></i><span> 퀴즈 내기</span></a>
-                        </li>
-                        <li><a class="ajax-link" href="professor_stat.html"><i class="glyphicon glyphicon-stats"></i><span> 참여도 확인</span></a>
+                        <li><a class="ajax-link" href="student_stat.html"><i class="glyphicon glyphicon-stats"></i><span> 참여도 확인</span></a>
                         </li>
                         </div>
             </div>
@@ -127,33 +126,25 @@
         <div id="content" class="col-lg-10 col-sm-10">
             <!-- content starts -->
             <div>
-                <ul class="breadcrumb"  align="right">
-                    <li>
-                    <i class="btn btn-info glyphicon glyphicon-play" > 시작</i>
-                    <i class="btn btn-info glyphicon glyphicon-stop" > 종료</i>
-                    </li>
-                </ul>
+    <ul class="breadcrumb">
+        <li>
+            <a href="student_index.html">Home</a>
+        </li>
+        <li>
+            <a href="student_quiz_solvev.html">Quiz</a>
+        </li>
+    </ul>
 </div>
 
-        <div class="row">
-        <div class="col-md-10 center login-header">
-            <h2>강의안</h2>
-        
-    <div class="row">
-        <div class="well col-md-10 center login-box">
-            여기에 PDF 띄울 곳
-        </div>
-        </div>
-       </div>    <button class="btn btn-primary noty"
-            data-noty-options="{&quot;text&quot;:&quot;교수님 X,Y에 질문이 있습니다.&quot;,&quot;layout&quot;:&quot;bottomRight&quot;,&quot;type&quot;:&quot;alert&quot;,&quot;animateOpen&quot;: {&quot;opacity&quot;: &quot;show&quot;}}">
-            </button>
-            <div align = "right">
-                <button type="button">
-                    <a href=professor_quiz.html>퀴즈 내기</a>
-                </button>
-            </div>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
+<form>
+  <div class="form-group">
+  <label for="comment">답 안</label>
+  <textarea class="form-control" rows="5" id="comment"></textarea>
+    </div>
+   <button type="submit" class="btn btn-default" onclick="alert('제출되었습니다..')" >제출</button>
+</form>
+   
 <!-- library for cookie management -->
 <script src="js/jquery.cookie.js"></script>
 <!-- calender plugin -->
