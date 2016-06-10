@@ -77,7 +77,7 @@
 		<tiles:insertAttribute name="header" />
 		<div class="ch-container">
 		    <div class="row">
-		        
+		       
 		        <!-- left menu starts -->
 		        <tiles:insertAttribute name="menu" />
 		        
@@ -85,9 +85,26 @@
 		
 		        <div id="content" class="col-lg-10 col-sm-10">
 		            <!-- content starts -->
-		            
+		            <c:if test="${subjectSeq ne null }">
+		             <ul class="breadcrumb">
+				        <li>
+				            <a href="/InLecture/main.do">Home</a>
+				        </li>
+				        <li>
+				            <a href="/InLecture/lecture/${subjectSeq}/lectureRoom.do" id="subjectName"></a>
+				        </li>
+				    </ul>
+				    </c:if>
+				    <c:if test="${subjectSeq eq null }">
+				    	<ul class="breadcrumb">
+				    	<li>
+				            <a href="/InLecture/main.do">Home</a>
+				        </li>
+				        </ul>
+				    </c:if>
 					<tiles:insertAttribute name="body" />
 				</div>
+				 
 			</div>
 		</div>
 </body>

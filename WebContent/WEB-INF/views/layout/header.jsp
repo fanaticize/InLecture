@@ -32,6 +32,10 @@
 		    success: function(data) {
 		    	var sethtml = '';
 		    	$.each(data, function(key, val) {
+		    		var headerSeq = '${subjectSeq}';
+		    		if(headerSeq==val.subjectSeq){
+		    			$('#subjectName').text(val.name);
+		    		}
 		    		sethtml+='<li><a href="'+basicurl+'lecture/'+val.subjectSeq+'/lectureRoom">'+val.name+'('+val.code+')</a></li>';
 		          });
 		    	$('#subjectListDivider').before(sethtml);
