@@ -56,7 +56,7 @@ public class BoardController {
 		return "lecture/board";
 	}
 	
-	@Secured("ROLE_TEACHER")
+	@Secured("ROLE_USER")
 	@RequestMapping(value = "{subjectSeq}/{type}/boardInsertPage", method = RequestMethod.GET)
 	public String boardInsertPage(@PathVariable @ModelAttribute("subjectSeq") int subjectSeq,
 		@PathVariable @ModelAttribute("type") String type,
@@ -65,7 +65,7 @@ public class BoardController {
 		return "lecture/boardInsert";
 	}
 	
-	@Secured("ROLE_TEACHER")
+	@Secured("ROLE_USER")
 	@RequestMapping(value = "{subjectSeq}/{type}/boardInsert", method = RequestMethod.POST)
 	public String boardInsert(@PathVariable @ModelAttribute("subjectSeq") int subjectSeq,
 			@PathVariable @ModelAttribute("type") String type,
@@ -75,7 +75,7 @@ public class BoardController {
 		return "redirect:boardListPage.do";
 	}
 	
-	@Secured("ROLE_TEACHER")
+	@Secured("ROLE_USER")
 	@RequestMapping(value = "{subjectSeq}/{type}/boardDelete", method = RequestMethod.GET)
 	public String boardDelete(@PathVariable @ModelAttribute("subjectSeq") int subjectSeq,
 			@ModelAttribute("boardVO") BoardVO boardVO,
@@ -84,7 +84,7 @@ public class BoardController {
 		return "redirect:boardListPage.do";
 	}
 	
-	@Secured("ROLE_TEACHER")
+	@Secured("ROLE_USER")
 	@RequestMapping(value = "{subjectSeq}/{type}/boardModifyPage", method = RequestMethod.GET)
 	public String boardModifyPage(@PathVariable @ModelAttribute("subjectSeq") int subjectSeq,
 			@ModelAttribute("boardVO") BoardVO boardVO,
@@ -94,7 +94,7 @@ public class BoardController {
 		return "lecture/boardModify";
 	}
 	
-	@Secured("ROLE_TEACHER")
+	@Secured("ROLE_USER")
 	@RequestMapping(value = "{subjectSeq}/{type}/boardModify", method = RequestMethod.POST)
 	public String boardModify(@ModelAttribute("boardVO") BoardVO boardVO,
 			Model model){

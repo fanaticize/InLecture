@@ -30,5 +30,13 @@
     </tbody>
   </table>
   </div>
-
+<c:if test="${type eq 'G'}">
+<sec:authorize access="hasRole('TEACHER')">
 <a href= "boardInsertPage.do"><input type="button" value="글쓰기" style="float: right" ></a>
+</sec:authorize>
+</c:if>
+<c:if test="${type eq 'Q'}">
+<sec:authorize access="hasRole('USER')">
+<a href= "boardInsertPage.do"><input type="button" value="글쓰기" style="float: right" ></a>
+</sec:authorize>
+</c:if>
