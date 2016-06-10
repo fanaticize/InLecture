@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<!DOCTYPE html>
-<html>
 <head>
 	<meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 	<title>InLecture</title>
-	<script type="text/javascript" src="<c:url value="/resources/js/jquery-2.2.4.min.js" />" ></script>
 	<script>
 	$(function () {
 		  var token = $("meta[name='_csrf']").attr("content");
@@ -45,9 +42,17 @@
 		});
 	}
 	</script>
+<style>
+	.enrolementTable{
+	}
+	.enrolementTable td{
+		line-height: 39px !important;
+	}
+</style>   
 </head>
-<body>
-<table>
+<div class="table-responsive">
+<table class="enrolementTable table table-striped">
+	<thead>
 	<tr>
 		<th>과목명</th>
 		<th>수업코드</th>
@@ -56,6 +61,7 @@
 		<th>이름</th>
 		<th>학번</th>
 	</tr>
+	</thead>
 	<c:forEach items="${enrolmentList}" var="enrolement" varStatus="status">
 	<tr id="list_${status.count}">
 		<td>${enrolement.subjectName }</td>
@@ -64,10 +70,9 @@
 		<td>${enrolement.semester }</td>
 		<td>${enrolement.memName}</td>
 		<td>${enrolement.memCode}</td>
-		<td><input class="acceptButton" type="button" value="승인" onclick="accept1(${enrolement.subjectSeq}, ${enrolement.memSeq}, ${status.count});"/></td>
-		<td><input class="rejectButton" type="button" value="거절" onclick="reject(${enrolement.subjectSeq}, ${enrolement.memSeq}, ${status.count});"/></td>
+		<td><input class="acceptButton btn btn-primary" type="button" value="승인" onclick="accept1(${enrolement.subjectSeq}, ${enrolement.memSeq}, ${status.count});"/></td>
+		<td><input class="rejectButton btn btn-primary" type="button" value="거절" onclick="reject(${enrolement.subjectSeq}, ${enrolement.memSeq}, ${status.count});"/></td>
 	</tr>
 	</c:forEach>
 </table>
-</body>
-</html>
+</div>

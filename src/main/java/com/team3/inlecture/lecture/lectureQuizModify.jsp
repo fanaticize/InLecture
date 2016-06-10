@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<!DOCTYPE html>
-<html>
+
 <head>
-<script type="text/javascript" src="<c:url value="/resources/js/jquery-2.2.4.min.js" />" ></script>
 <script>
 	var quizNum = 1;
 	$(function () {
@@ -16,9 +14,9 @@
 	function addQuestion(){
 		 $("#quizSet").append(
 				'<div id="quiz_'+quizNum+'">'
-					+'<input class="idx" value="1"/>번'
-					+'<input type="text" class="quiz_content"/>'
-					+'<input type="button" value="삭제" onclick="deleteQuestion('+quizNum+');">'
+					+'<input class="idx" name="quizProblemList[0].idx" style="width: 30px;" readonly="readonly" value="1"/>번'
+					+'<div class="glyphicon glyphicon-remove" title="삭제" onclick="deleteQuestion('+quizNum+');"></div><p><p>'
+					+'<textarea name="quizProblemList[0].content" style="width: 500px;" class="form-control quiz_content" rows="3"></textarea>'
 				+'</div>');
 		 quizNum++;
 		 resetIdx();
@@ -31,7 +29,7 @@
 		$('#quizSet > div').each(function(index) {
 		   $(this).find('input.idx').val(index+1);
 		   $(this).find('input.idx').attr("name", "quizProblemList[" + index + "].idx");
-		   $(this).find('input.quiz_content').attr("name", "quizProblemList[" + index + "].content");
+		   $(this).find('textarea.quiz_content').attr("name", "quizProblemList[" + index + "].content");
 		  });
 	}
 </script>
@@ -46,18 +44,19 @@
 <div id="quizSet">
 	<c:forEach items="${quiz.quizProblemList}" var="problemList" varStatus="status">
 	<div id="quiz_${problemList.idx}">
-		<input class="idx" name="quizProblemList[${status.index}].idx" readonly="readonly" value="${problemList.idx}"/>번
-		<input type="text"  name="quizProblemList[${status.index}].content" class="quiz_content" value="${problemList.content}"/>
-		<input type="button" value="삭제" onclick="deleteQuestion(${problemList.idx});">
+		<input class="idx" name="quizProblemList[${status.index}].idx" style="width: 30px;" readonly="readonly" value="${problemList.idx}"/>번
+		<div class="glyphicon glyphicon-remove" title="삭제" onclick="deleteQuestion(${problemList.idx});"></div><p><p>
+		<textarea name="quizProblemList[${status.index}].content" style="width: 500px;" class="form-control quiz_content" rows="3">${problemList.content}</textarea>
+<%-- 		<input type="text"  name="quizProblemList[${status.index}].content" class="quiz_content" value="${problemList.content}"/> --%>
+<%-- 		<input type="button" value="삭제" onclick="deleteQuestion(${problemList.idx});"> --%>
 	</div>
 	</c:forEach>
 </div>
 
 <div>
-<input type="button" value="문제추가" onclick="addQuestion();">
+
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </div>
-<input type="submit" value="전송"/>
+<input type="button" class="btn btn-primary" style="margin-right:10px;" value="문제추가" onclick="addQuestion();">
+<input type="submit" class="btn btn-primary" value="전송"/>
 </form>
-</body>
-</html>

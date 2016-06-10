@@ -27,6 +27,7 @@ public class FileManager {
 		fileVO.setFileType(file.getContentType());
 		fileVO.setUseType(type);
 		fileMapper.insertFile(fileVO);
+		fileMapper.updateFileOrgName(fileVO);
 		fileVO.setRealName(fileVO.getFileSeq()+"_"+fileVO.getName());
 		writeFile(file, fileVO);
 		return fileVO;

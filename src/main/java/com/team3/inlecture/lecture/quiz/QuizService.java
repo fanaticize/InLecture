@@ -15,6 +15,7 @@ import com.team3.inlecture.member.MemberVO;
 public class QuizService {
 	@Autowired
     private QuizMapper quizMapper;
+	
 	public ArrayList<QuizVO> selectQuizList(int subjectSeq) {
 		return quizMapper.selectQuizList(subjectSeq);
 	}
@@ -78,13 +79,12 @@ public class QuizService {
 	}
 	public void insertGrading(QuizStudentVO quizStudent) {
 		ArrayList<QuizStudentAnswerVO> answerArr = quizStudent.getAnswerList();
-		double avg = 0;
+		double sum = 0;
 		for(QuizStudentAnswerVO ans: answerArr){
-			avg += ans.getScore();
+			sum += ans.getScore();
 			quizMapper.updateAnswer(ans);
 		}
-		avg = avg/answerArr.size();
-		quizStudent.setScore(avg);
+		quizStudent.setScore(sum);
 		quizMapper.updateQuizStudentScore(quizStudent);
 	}
 

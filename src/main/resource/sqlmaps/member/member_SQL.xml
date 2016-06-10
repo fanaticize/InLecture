@@ -7,4 +7,10 @@
     	(ID, PW, NAME, NICK, ROLE, SCHOOL, EMAIL, CODE) VALUES 
     	(#{id}, #{pw}, #{name}, #{nick}, #{role}, #{school}, #{email}, #{code}) 
     </insert>
+    
+    <select id="verifyID" parameterType="String" resultType="memberVO">
+    	SELECT * FROM MEMBER
+    	WHERE ID = #{id}
+    </select>
+    
 </mapper>

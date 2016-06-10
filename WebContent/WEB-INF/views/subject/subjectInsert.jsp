@@ -3,8 +3,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <div class="row">
-    <div class="well col-md-9 center login-box">
-    	<form:form commandName="subject" class="form-horizontal">
+    <div class="well col-md-9 center login-box" style="max-width: 800px;">
+    	<form:form commandName="subject" class="form-horizontal" style="max-width: 800px;">
          <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">학교</label>
             <div class="col-sm-10">
@@ -32,13 +32,13 @@
           </div>
            <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">학기</label>
-            <div class="col-sm-10">
-              <form:radiobutton path="semester" value="1H" label="1학기"/>
-		<form:radiobutton path="semester" value="2H" label="2학기"/>
-        <form:errors path="semester" />
+            <div class="col-sm-10" style="padding-top: 9px;">
+              <form:radiobutton class="radio-inline" path="semester" value="1H" label="1학기"/>&nbsp;&nbsp;&nbsp;
+				<form:radiobutton class="radio-inline" path="semester" value="2H" label="2학기"/>
+		        <form:errors path="semester" />
             </div>
           </div>
-           <input type="submit" value="제출" > 
+           <input type="submit" class="btn btn-primary" style="width:70px; text-align: center" value="제출" > 
         </form:form>
        </div>
 </div>

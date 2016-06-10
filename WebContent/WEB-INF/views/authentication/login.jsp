@@ -34,7 +34,7 @@
         
     <div class="row">
         <div class="col-md-12 center login-header">
-            <h2>In Lecture 시스템에 오신걸 환영합니다.</h2>
+            <h2>In Lecture System</h2>
         </div>
         <!--/span-->
     </div><!--/row-->

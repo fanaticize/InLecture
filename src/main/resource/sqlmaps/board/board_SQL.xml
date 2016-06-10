@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team3.inlecture.lecture.board.BoardMapper">
+	<insert id="insertBoard" parameterType="boardVO" >
+		 INSERT INTO BOARD
+    	(SUBJECTSEQ, TYPE, TITLE, CONTENTS, WRITER, MEMSEQ, WRITEDATE, PARENT) VALUES 
+    	(#{subjectSeq}, #{type}, #{title}, #{contents}, (SELECT NAME FROM MEMBER WHERE memseq = #{memseq}), #{memseq}, now(), #{parent}) 
+	</insert>
+	<select id="selectBoardList" parameterType="boardVO" resultType="boardVO">
+		SELECT * FROM BOARD 
+		WHERE
+		SUBJECTSEQ = #{subjectSeq}
+		AND type = #{type}
+		ORDER BY IF(PARENT != 0,PARENT, IDX) DESC, IDX;
+	</select>
+	<select id="getBoardContents" parameterType="int" resultType="boardVO">
+		SELECT * FROM BOARD
+		WHERE idx = #{idx}
+	</select>
+	<delete id="deleteBoard" parameterType="int" >
+		DELETE FROM BOARD
+		WHERE IDX = #{idx}
+	</delete>
+	
+	<update id="modifyBoard" parameterType="boardVO">
+		UPDATE BOARD
+		SET CONTENTS = #{contents},
+		title = #{title}
+		WHERE IDX = #{idx}
+	</update>
+</mapper>

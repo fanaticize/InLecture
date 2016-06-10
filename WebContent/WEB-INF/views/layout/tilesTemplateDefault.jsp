@@ -20,8 +20,8 @@
     <link href='<c:url value="/resources/bower_components/colorbox/example3/colorbox.css" />' rel='stylesheet'>
     <link href='<c:url value="/resources/bower_components/responsive-tables/responsive-tables.css" />' rel='stylesheet'>
     <link href='<c:url value="/resources/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css" />' rel='stylesheet'>
-    <link href='<c:url value="/resources/css/jquery.noty.css" />' rel='stylesheet'>
-    <link href='<c:url value="/resources/css/noty_theme_default.css" />' rel='stylesheet'>
+<%--     <link href='<c:url value="/resources/css/jquery.noty.css" />' rel='stylesheet'> --%>
+<%--     <link href='<c:url value="/resources/css/noty_theme_default.css" />' rel='stylesheet'> --%>
     <link href='<c:url value="/resources/css/elfinder.min.css" />' rel='stylesheet'>
     <link href='<c:url value="/resources/css/elfinder.theme.css" />' rel='stylesheet'>
     <link href='<c:url value="/resources/css/jquery.iphone.toggle.css" />' rel='stylesheet'>
@@ -51,7 +51,9 @@
 	<!-- plugin for gallery image view -->
 	<script src="<c:url value="/resources/bower_components/colorbox/jquery.colorbox-min.js" />"></script>
 	<!-- notification plugin -->
-	<script src="<c:url value="/resources/js/jquery.noty.js" />"></script>
+<%-- 	<script src="<c:url value="/resources/js/jquery.noty.js" />"></script> --%>
+<%-- <script src="<c:url value="/resources/js/jquery.noty.packaged.min.js" />"></script> --%>
+<!-- <script type="text/javascript" src="js/jquery.noty.packaged.min.js"></script> -->
 	<!-- library for making tables responsive -->
 	<script src="<c:url value="/resources/bower_components/responsive-tables/responsive-tables.js" />"></script>
 	<!-- tour plugin -->

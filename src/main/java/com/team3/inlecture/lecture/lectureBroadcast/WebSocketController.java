@@ -31,7 +31,7 @@ public class WebSocketController {
     @SendTo("/subscribe/echo/{subjectSeq}/sendQuestion")
     public HashMap<String, String> sendQuestion(@DestinationVariable String subjectSeq,
     		HashMap<String, String> param) throws Exception {
-		System.out.println("getQuestion: "+param.get("question"));
+//		System.out.println("getQuestion: "+param.get("question"));
 		return param;
     }
 	

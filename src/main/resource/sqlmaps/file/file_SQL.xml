@@ -5,8 +5,13 @@
     <insert id="insertFile" parameterType="fileVO" useGeneratedKeys="true" keyProperty="fileSeq">
     	INSERT INTO FILE
     	(NAME, REALNAME, DATE, FILETYPE, USETYPE) VALUES 
-    	(#{name}, CONCAT(LAST_INSERT_ID()+1,'_' ,#{name}), now(), #{fileType}, #{useType}) 
+    	(#{name}, '', now(), #{fileType}, #{useType})
     </insert>
+    <update id="updateFileOrgName" parameterType="fileVO">
+    	UPDATE FILE
+    	SET REALNAME = CONCAT(#{fileSeq},'_' ,#{name})
+    	WHERE FILESEQ = #{fileSeq}
+    </update>
     <select id="selectFile" parameterType="int" resultType="fileVO">
     	SELECT * FROM FILE
     	WHERE FILESEQ = #{fileSeq}

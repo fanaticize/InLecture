@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<!DOCTYPE html>
-<html>
 <head>
-<script type="text/javascript" src="<c:url value="/resources/js/jquery-2.2.4.min.js" />" ></script>
 <script>
 	function takeQuiz(quizSeq){
 		if(confirm('퀴즈에 응시하시겠습니까?')){
@@ -13,16 +10,26 @@
 	}
 	
 </script>
+<style>
+	.quizTable{
+		width: 600px;
+	}
+	.quizTable td{
+		width: 200px;
+	}
+</style>
 <title>Insert title here</title>
 </head>
 <body>
-<table>
+<div class="table-responsive">
+<table class="quizTable table table-striped">
+<thead>
 <tr>
 <th>퀴즈명</th>
 <th>완료여부</th>
 <th></th>
-<th></th>
 </tr>
+</thead>
 <c:forEach items="${quizList }" var="quizList">
 <tr>
 <td>${quizList.name }</td>
@@ -48,5 +55,4 @@
 </tr>
 </c:forEach>
 </table>
-</body>
-</html>
+</div>

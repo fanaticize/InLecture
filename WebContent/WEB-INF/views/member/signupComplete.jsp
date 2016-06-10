@@ -4,10 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>InLecture</title>	
+	<title>InLecture</title>
+	<script>
+	alert('회원가입이 완료되었습니다.');
+	location.href = '/InLecture/main.do';
+	</script>	
 </head>
 
 <body>
-<p>회원가입 완료</p>
 </body>
 </html>

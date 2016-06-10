@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<!DOCTYPE html>
-<html>
 <head>
 	<meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 	<title>InLecture</title>
-	<script type="text/javascript" src="<c:url value="/resources/js/jquery-2.2.4.min.js" />" ></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/sockjs-1.1.1.min.js" />" ></script>
 	<script type="text/javascript" src= "<c:url value="/resources/js/stomp.min.js" />"></script>
 	<script>
@@ -101,13 +98,16 @@
 	
 </head>
 <body>
-<table>
+<div class="table-responsive">
+<table class="quizTable table table-striped" style="max-width: 550px;">
+<thead>
 <tr>
 <th>퀴즈명</th>
 <th>완료여부</th>
 <th></th>
 <th></th>
 </tr>
+</thead>
 <c:forEach items="${quizList }" var="quizList">
 <tr>
 <td>${quizList.name }</td>
@@ -124,24 +124,27 @@
 </td>
 <td>
 	<c:if test="${quizList.isTested ne 'Y'}">
-		<input type="button" value="수정" onclick="quizModify(${quizList.quizSeq})"/>
+		<div class="glyphicon glyphicon-pencil" style="cursor:pointer; margin-right:15px;" title="수정" onclick="quizModify(${quizList.quizSeq})"></div>
 	</c:if>
 	<c:if test="${quizList.isTested ne 'W'}">
-		<input type="button" value="삭제" onclick="quizDelete(${quizList.quizSeq})"/>
+		<div class="glyphicon glyphicon-remove" style="cursor:pointer; margin-right:15px;" title="삭제" onclick="quizDelete(${quizList.quizSeq})"></div>
+<%-- 		<input type="button" value="삭제" onclick="quizDelete(${quizList.quizSeq})"/> --%>
 	</c:if>
 	<c:if test="${quizList.isTested eq 'N'}">
-		<input type="button" value="시작" onclick="quizStart(${quizList.quizSeq})"/>
+		<div class="glyphicon glyphicon-play" style="cursor:pointer; margin-right:15px;"title="시작" onclick="quizStart(${quizList.quizSeq})"></div>
+<%-- 		<input type="button" value="시작" onclick="quizStart(${quizList.quizSeq})"/> --%>
 	</c:if>
 	<c:if test="${quizList.isTested eq 'W'}">
-		<input type="button" value="끝" onclick="quizEnd(${quizList.quizSeq})"/>
+		<div class="glyphicon glyphicon-stop" style="cursor:pointer; margin-right:15px;" title="끝" onclick="quizEnd(${quizList.quizSeq})"></div>
+<%-- 		<input type="button" value="끝" onclick="quizEnd(${quizList.quizSeq})"/> --%>
 	</c:if>
 	<c:if test="${quizList.isTested eq 'Y'}">
-		<input type="button" value="채점" onclick="quizGrading(${quizList.quizSeq})"/>
+<%-- 		<input type="button" value="채점" onclick="quizGrading(${quizList.quizSeq})"/> --%>
+		<div class="glyphicon glyphicon glyphicon-ok" style="cursor:pointer; margin-right:15px;" title="채점" onclick="quizGrading(${quizList.quizSeq})"></div>
 	</c:if>
 </td>
 </tr>
 </c:forEach>
 </table>
-<input type="button" value="추가" onclick="quizInsert();"/>
-</body>
-</html>
+</div>
+<input type="button" class="btn btn-primary" value="퀴즈추가" onclick="quizInsert();"/>

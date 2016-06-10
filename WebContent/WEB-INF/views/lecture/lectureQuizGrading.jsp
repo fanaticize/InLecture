@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<!DOCTYPE html>
-<html>
-<head>
+
 <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 	<title>InLecture</title>
-	<script type="text/javascript" src="<c:url value="/resources/js/jquery-2.2.4.min.js" />" ></script>
 	<script>
 	$(function () {
 		  var token = $("meta[name='_csrf']").attr("content");
@@ -39,12 +36,12 @@
 		    			 tempScore = '';
 		    		 if(val.comment == null)
 		    			 tempComment = '';
-		    		 sethtml += '<div>';
-		    		 sethtml += '문제'+val.idx+' : <span>'+val.content+'</span><p>';
-		    		 sethtml += '답: <span>'+val.answer+ '<span><p>';
+		    		 sethtml += '<div style="margin-bottom:50px;">';
+		    		 sethtml += '문제'+val.idx+' : <p><textarea style="width: 500px;" readonly="readonly" class="form-control" rows="3">'+val.content+'</textarea><p>';
+		    		 sethtml += '답:<p><textarea style="width: 500px;" readonly="readonly" class="form-control" rows="3">'+val.answer+ '</textarea><p>';
 		    		 sethtml += '점수: <input class="quizScore" name="answerList['+key+'].score" value="'+tempScore+'" /><p>';
-		    		 sethtml += '주석: <input name="answerList['+key+'].comment" value="'+tempComment+'" /><p>';
-		    		 sethtml += '<input type="hidden" name="answerList['+key+'].quizAnswerSeq" value='+val.quizAnswerSeq+' /><p>';
+		    		 sethtml += '주석: <textarea name="answerList['+key+'].comment" style="width: 500px;" class="form-control" rows="1"/>'+tempComment+'</textarea> <p>';
+		    		 sethtml += '<input type="hidden" name="answerList['+key+'].quizAnswerSeq" value='+val.quizAnswerSeq+' />';
 		    		 sethtml += '</div>';
 		          });
   		    	sethtml+='<input type="button" value="전송" onclick="submitAnswer();">';
@@ -68,18 +65,33 @@
 			document.quizAnswerList.submit();
 	}
 	</script>
+	<style>
+		th, td{
+			width:110px;
+			text-align:center !important;
+		}
+		.quizScore{
+			width:100px;
+		}
+		
+	</style>
 </head>
 <body>
-<table>
+<div style="width: 80%; max-width: 550px; position: relative; top: 21px;" class="table-responsive">
+<table class="table table-striped" style="max-width: 550px;">
+<thead>
 <tr>
 <th>이름</th>
 <th>학번</th>
 <th>채점여부</th>
 <th>점수</th>
+<th></th>
 </tr>
+</thead>
 </table>
-<div style="width: 80%; height: 120px; overflow-y: scroll;;">
-	<table>
+</div>
+<div style="width: 80%; height: 120px; max-width: 570px; overflow-y: scroll;" class="table-responsive">
+	<table class="table table-striped" style="max-width: 570px;">
 		<c:forEach items="${quizStudentList }" var="quizStudentList">
 			<tr>
 			<td>${quizStudentList.member.name }</td>
@@ -88,6 +100,9 @@
 			<td>
 				<c:if test="${quizStudentList.isGrading eq 'Y'}">
 					${quizStudentList.score}
+				</c:if>
+				<c:if test="${quizStudentList.isGrading ne 'Y'}">
+					X
 				</c:if>
 			</td>
 			<td>
@@ -107,5 +122,3 @@
 </div>
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
-</body>
-</html>

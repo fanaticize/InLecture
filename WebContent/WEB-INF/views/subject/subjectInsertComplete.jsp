@@ -6,7 +6,4 @@
 <head>
 	<title>InLecture</title>	
 </head>
-<body>
 	수업개설완료
-</body>
-</html>

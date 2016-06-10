@@ -20,7 +20,7 @@
                 </sec:authorize>
                 <sec:authorize access="hasRole('TEACHER')">
 	                <li>
-	                <a class="ajax-link" href="/InLecture/lecture/${subjectSeq}/lectureMaterialPage.do"><i class="glyphicon glyphicon-save-file"></i><span>강의자료추가</span></a>
+	                <a class="ajax-link" href="/InLecture/lecture/${subjectSeq}/lectureMaterialPage.do"><i class="glyphicon glyphicon-file"></i><span>강의자료추가</span></a>
 	                </li>
                 </sec:authorize>
                 <sec:authorize access="hasRole('TEACHER')">
@@ -38,6 +38,10 @@
 	                <a class="ajax-link" href="/InLecture/lecture/schedule/${subjectSeq}/scheduleManagePage.do"><i class="glyphicon glyphicon-calendar"></i><span>일정관리</span></a>
 	                </li>
 				</sec:authorize>
+				<sec:authorize access="hasRole('USER')">
+					<li><a class="ajax-link" href="/InLecture/lecture/board/${subjectSeq}/G/boardListPage.do"><i class="glyphicon glyphicon-bullhorn"></i><span> 공지 게시판</span></a></li>
+                    <li><a class="ajax-link" href="/InLecture/lecture/board/${subjectSeq}/Q/boardListPage.do"><i class="glyphicon glyphicon-list-alt"></i><span> 질문 게시판</span></a>
+                </sec:authorize>
 <!--                 <li> -->
 <!--                 <a class="ajax-link" href="professor_note_box.html"><i class="glyphicon glyphicon-envelope"></i><span> 쪽지함</span></a> -->
 <!--                 </li> -->
