@@ -12,7 +12,7 @@
 	<script type="text/javascript" src="<c:url value="/resources/js/pdfjs/pdf.js" />"></script>
 	<script id="script">
 	var pdfDoc,	pageNum, pageRendering, pageNumPending, scale, canvas, ctx, isLoadRender, notyIdx = 0,
-	imgArr = new Array(), imgArrIdx = 0;
+	imgArr = new Array(), imgArrIdx = 0, initCanFunc;
 	
 	<sec:authorize access="hasRole('TEACHER')">
 	var role = 'T';
@@ -44,12 +44,22 @@
 		  disconnect(); init();
 		  objoff= $("#can").offset();
 		  
-
-
-		  $(window).resize(function(){
-			initCanvas();
-		  }).resize();
+		  
+		  
+// 		  $(window).resize(function(){
+// 			  initCanvas();
+// 		  }).resize();
 	});
+	 
+	 function initCanvas(){
+			console.log('그림판 초기화');
+			var wid = $('#the-canvas').width();
+			var hei = $('#the-canvas').height();
+			$('#can').attr('width', wid);
+			$('#can').attr('height', hei);
+			objoff= $("#can").offset();
+			init();
+		}
 	function initPdf(pdffile){
 		
 		var pdfData = atob(pdffile);
@@ -103,7 +113,10 @@
 		    	
 			  	pageRendering = false;
 // 			  	console.log('load complete');
-				
+				//리사이즈 대응
+				$(window).resize(function(){
+					  initCanvas();
+				  }).resize();
 				//첫번째 로딩이면 그림판 초기화
 				if(isLoadRender){
  					initCanvas();
@@ -263,7 +276,8 @@
 			memSeq : '${memSeq}' ,
 			imgdata: imgd,
 			isImg: isSendImg,
-			page: $('#page_num').text()
+			page: $('#page_num').text(),
+			fileSeq: $('#fileSeq').val()
 		  }
     	  doSend('/sendQuestion', data);
       }
@@ -395,15 +409,11 @@ var x = "black",
 y = 2;
 var wid;
 var hei;
-function initCanvas(){
-	console.log('그림판 초기화');
-	var wid = $('#the-canvas').width();
-	var hei = $('#the-canvas').height();
-	$('#can').attr('width', wid);
-	$('#can').attr('height', hei);
-	objoff= $("#can").offset();
-	init();
-}
+
+
+
+
+
 function init() {
 	drawcanvas = document.getElementById('can');
 	ctx2 = drawcanvas.getContext("2d");

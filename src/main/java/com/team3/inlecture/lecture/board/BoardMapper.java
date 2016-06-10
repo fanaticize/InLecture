@@ -17,5 +17,6 @@ public interface BoardMapper {
 	public Integer deleteBoard(int idx);
 
 	public Integer modifyBoard(BoardVO boardVO);
+
 	
 }

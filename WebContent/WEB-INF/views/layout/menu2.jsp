@@ -42,6 +42,9 @@
 					<li><a class="ajax-link" href="/InLecture/lecture/board/${subjectSeq}/G/boardListPage.do"><i class="glyphicon glyphicon-bullhorn"></i><span> 공지 게시판</span></a></li>
                     <li><a class="ajax-link" href="/InLecture/lecture/board/${subjectSeq}/Q/boardListPage.do"><i class="glyphicon glyphicon-list-alt"></i><span> 질문 게시판</span></a>
                 </sec:authorize>
+                <sec:authorize access="hasRole('TEACHER')">
+                <li><a class="ajax-link" href="/InLecture/lecture/statistics/${subjectSeq}/statisticsPage.do"><i class="glyphicon glyphicon-stats"></i><span>참여도 및 성적</span></a>
+				</sec:authorize>
 <!--                 <li> -->
 <!--                 <a class="ajax-link" href="professor_note_box.html"><i class="glyphicon glyphicon-envelope"></i><span> 쪽지함</span></a> -->
 <!--                 </li> -->

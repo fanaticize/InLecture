@@ -3,14 +3,20 @@ package com.team3.inlecture.lecture.lectureBroadcast;
 
 import java.util.HashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
+import com.team3.inlecture.lecture.board.BoardService;
+import com.team3.inlecture.lecture.board.BoardVO;
+
 @Controller
 public class WebSocketController {
-
+	@Autowired
+	BoardService boardService;
+	
 	@MessageMapping("/echo/{subjectSeq}/isOpen")
     @SendTo("/subscribe/echo/{subjectSeq}/isOpen")
     public HashMap<String, String> isOpen(@DestinationVariable String subjectSeq,
@@ -31,7 +37,11 @@ public class WebSocketController {
     @SendTo("/subscribe/echo/{subjectSeq}/sendQuestion")
     public HashMap<String, String> sendQuestion(@DestinationVariable String subjectSeq,
     		HashMap<String, String> param) throws Exception {
-//		System.out.println("getQuestion: "+param.get("question"));
+		BoardVO boardVO = new BoardVO();
+		boardVO.setSubjectSeq(Integer.parseInt(subjectSeq));
+		boardVO.setMemseq(Integer.parseInt(param.get("memSeq")));
+		boardVO.setContents(param.get("question"));
+		boardService.insertQuestionInLecture(boardVO, Integer.parseInt(param.get("fileSeq")), Integer.parseInt(param.get("page")));
 		return param;
     }
 	
