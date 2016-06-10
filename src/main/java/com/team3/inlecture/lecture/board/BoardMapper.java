@@ -18,5 +18,7 @@ public interface BoardMapper {
 
 	public Integer modifyBoard(BoardVO boardVO);
 
+	public ArrayList<BoardVO> selectUpper5Rows(BoardVO boardVO);
+
 	
 }

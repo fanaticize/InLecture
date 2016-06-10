@@ -22,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.team3.inlecture.authentication.UserAuth;
 import com.team3.inlecture.common.FileManager;
 import com.team3.inlecture.common.FileVO;
+import com.team3.inlecture.lecture.board.BoardService;
+import com.team3.inlecture.lecture.board.BoardVO;
 
 
 @Controller
@@ -29,13 +31,18 @@ import com.team3.inlecture.common.FileVO;
 public class LectureController {
 	@Autowired
     private LectureService lectureService;
+	@Autowired
+    private BoardService boardService;
 	
 	@Secured("ROLE_USER")
 	@RequestMapping(value = "{subjectSeq}/lectureRoom", method = RequestMethod.GET)
 	public String lectureRoom(Model model,
 			@PathVariable @ModelAttribute("subjectSeq") String subjectSeq) {
 //		model.addAttribute("lectureRoom", true);
-		
+		ArrayList<BoardVO> gonggiList = boardService.selectUpper5Rows(Integer.parseInt(subjectSeq), "G");
+		ArrayList<BoardVO> qnaList = boardService.selectUpper5Rows(Integer.parseInt(subjectSeq), "Q");
+		model.addAttribute("gonggiList", gonggiList);
+		model.addAttribute("qnaList", qnaList);
 		return "lecture/lectureRoom";
 	}
 	

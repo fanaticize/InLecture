@@ -33,11 +33,11 @@
 	                <a class="ajax-link" href="/InLecture/lecture/quiz/${subjectSeq}/quizSelectPage.do"><i class="glyphicon glyphicon-pencil"></i><span>퀴즈</span></a>
 	                </li>
                 </sec:authorize>
-                <sec:authorize access="hasRole('TEACHER')">
-                	<li>
-	                <a class="ajax-link" href="/InLecture/lecture/schedule/${subjectSeq}/scheduleManagePage.do"><i class="glyphicon glyphicon-calendar"></i><span>일정관리</span></a>
-	                </li>
-				</sec:authorize>
+<%--                 <sec:authorize access="hasRole('TEACHER')"> --%>
+<!--                 	<li> -->
+<%-- 	                <a class="ajax-link" href="/InLecture/lecture/schedule/${subjectSeq}/scheduleManagePage.do"><i class="glyphicon glyphicon-calendar"></i><span>일정관리</span></a> --%>
+<!-- 	                </li> -->
+<%-- 				</sec:authorize> --%>
 				<sec:authorize access="hasRole('USER')">
 					<li><a class="ajax-link" href="/InLecture/lecture/board/${subjectSeq}/G/boardListPage.do"><i class="glyphicon glyphicon-bullhorn"></i><span> 공지 게시판</span></a></li>
                     <li><a class="ajax-link" href="/InLecture/lecture/board/${subjectSeq}/Q/boardListPage.do"><i class="glyphicon glyphicon-list-alt"></i><span> 질문 게시판</span></a>

@@ -48,4 +48,12 @@ public class BoardService {
 		boardVO.setType("Q");
 		boardMapper.insertBoard(boardVO);
 	}
+	
+	public ArrayList<BoardVO> selectUpper5Rows(int subjectSeq, String type){
+		BoardVO boardVO = new BoardVO();
+		boardVO.setSubjectSeq(subjectSeq);
+		boardVO.setType(type);
+		return boardMapper.selectUpper5Rows(boardVO);
+	}
+	
 }

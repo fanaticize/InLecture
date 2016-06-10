@@ -15,6 +15,16 @@
 		AND type = #{type}
 		ORDER BY IF(PARENT != 0,PARENT, IDX) DESC, IDX;
 	</select>
+	
+	<select id="selectUpper5Rows" parameterType="boardVO" resultType="boardVO">
+		SELECT * FROM BOARD 
+		WHERE
+		SUBJECTSEQ = #{subjectSeq}
+		AND type = #{type}
+		ORDER BY IF(PARENT != 0,PARENT, IDX) DESC, IDX LIMIT 5;
+	</select>
+	
+	
 	<select id="getBoardContents" parameterType="int" resultType="boardVO">
 		SELECT * FROM BOARD
 		WHERE idx = #{idx}
